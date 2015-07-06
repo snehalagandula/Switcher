@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="adminApp" ng-init="msg = 'Hello'">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+</head>
+<body ng-controller="AdminCtrl">
+
+<div class="container">
+
+    <div class="page-header">
+        <h1>Administrator Form</h1>
+    </div>
+
+    <!-- Registration form - START -->
+    <div class="container">
+        <div class="row">
+            <form role="form" ng-submit="sendToServer()">
+                <div class="col-lg-6">
+                    <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required
+                        Field</strong></div>
+                    <div class="form-group">
+                        <!--<label for="InputBuildNum">Build No.</label>-->
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="buildNum" id="BuildNum"
+                                   placeholder="Build Number" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!--<label for="InputEmail">OS</label>-->
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="os" id="OS"
+                                   placeholder="Operating Sustem" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!--<label for="InputEmail">AWD</label>-->
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="awd" id="AWD"
+                                   placeholder="AWD" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="server1" id="Server1"
+                                   placeholder="Server #1 Address" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="server2" id="Server2"
+                                   placeholder="Server #2 Address" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- admin form - END -->
+</div>
+</body>
+
+<script src="javascripts/jquery.js"></script>
+<script src="javascripts/bootstrap.min.js"></script>
+<script src="javascripts/angular.js"></script>
+<script src="javascripts/angular-route.js"></script>
+
+<script type="text/javascript">
+    var app = angular.module("adminApp", []);
+    app.controller("AdminCtrl", function ($scope, $http) {
+        $scope.buildNum = "123";
+        $scope.os = "Windows";
+        $scope.awd = "1231234";
+        $scope.server1 = "12.121.12.121";
+        $scope.server2 = "23.34.6.7";
+        $scope.sendToServer = function() {
+            console.log($scope.buildNum);
+            console.log($scope.server1);
+
+            $http.post("build", {
+                buildnum: $scope.buildNum,
+                os: $scope.os,
+                awd: $scope.awd,
+                server1: $scope.server1,
+                server2: $scope.server2
+            }, function(response) {
+               console.log(response);
+            });
+        };
+    });
+</script>
+</html>

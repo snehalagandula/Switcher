@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="listApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Builds List</title>
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+</head>
+
+<body ng-controller="BuildsCtrl">
+
+<div class="list-group">
+    <a href="#" class="list-group-item" ng-repeat="b in builds">
+        <h4 class="list-group-item-heading">{{b.os}}</h4>
+
+        <p class="list-group-item-text">{{b.buildnum}}</p>
+
+        <p class="list-group-item-text">{{b.server1}} || {{b.server2}}</p>
+    </a>
+
+</div>
+</body>
+
+<script src="javascripts/jquery.js"></script>
+<script src="javascripts/bootstrap.min.js"></script>
+<script src="javascripts/angular.js"></script>
+<script src="javascripts/angular-route.js"></script>
+
+<script type="text/javascript">
+    var app = angular.module("listApp", []);
+    app.controller("BuildsCtrl", function ($scope, $http) {
+        $http.get("/builds").success(function (response) {
+            $scope.builds = response.results;
+            console.log(response.results);
+        });
+    });
+</script>
+</html>
