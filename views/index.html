@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.0.1/sweetalert.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.0.1/sweetalert.min.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    $(document).ready(function () {
+
+
+        //Runs After Page Load
+        swal({
+                    title: "SWITCHER",
+                    text: "Please Enter The Password",
+                    type: "input",
+                    showCancelButton: false,
+                    closeOnConfirm: false,
+                    confirmButtonText: "Login",
+                    animation: "slide-from-top",
+                    inputType: "password",
+                    inputPlaceholder: "Password"
+                },
+                function (inputValue) {
+
+                    //If No Input
+                    if (inputValue === "") {
+                        swal.showInputError("Please Enter The Password !");
+                        return false;
+                    }
+                    //Need To Make AJAX Call And check Password
+                    // alert("sending data"+inputValue);
+                    $.ajax({
+                        type: 'GET',
+                        url: "/checkPassword", //Node method
+                        dataType: "json",
+                        data: {
+                            password: inputValue
+                        },
+                        success: function (data) {
+                            if (data == true)
+                            //Matched Case
+                                alert("correct")
+                            else
+                            //Not Matched Case
+                                alert("in-correct")
+                        }
+
+                    });
+
+
+                    //If Matched
+                    /*   if (inputValue === "welcome") {
+                     swal({
+                     title: "Successfully Loged In!",
+                     text: "Loading Data....",
+                     type: "success",
+                     timer: 2000,
+                     });
+                     } else {
+                     //If Not Matched
+                     $("fieldset input").val("");
+                     swal.showInputError("Incorrect Password , Please Try Again !");
+                     return false
+
+                     }*/
+                });
+    });
+</script>
+
+</html>
